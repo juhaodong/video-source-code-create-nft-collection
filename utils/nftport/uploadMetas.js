@@ -1,49 +1,50 @@
-const fetch = require("node-fetch");
+const fetch = require("node-fetch")
 
-const path = require("path");
-const isLocal = typeof process.pkg === "undefined";
-const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
-const fs = require("fs");
+const path = require("path")
+const isLocal = typeof process.pkg === "undefined"
+const basePath = isLocal ? process.cwd() : path.dirname(process.execPath)
+const fs = require("fs")
 
-const AUTH = 'YOUR API KEY HERE';
+const AUTH = 'a73f9bfb-4e00-4f62-a67c-ffae85315326'
 
-fs.writeFileSync(`${basePath}/build/json/_ipfsMetas.json`, "");
+fs.writeFileSync(`${basePath}/build/json/_ipfsMetas.json`, "")
 const writter = fs.createWriteStream(`${basePath}/build/json/_ipfsMetas.json`, {
-  flags: "a",
-});
-writter.write("[");
-const readDir = `${basePath}/build/json`;
-fileCount = fs.readdirSync(readDir).length - 2;
+  flags: "a"
+})
+writter.write("[")
+const hasReveal = true
+const readDir = `${basePath}/build/${hasReveal ? 'genericJson' : 'json'}`
+fileCount = fs.readdirSync(readDir).length - 2
 
 fs.readdirSync(readDir).forEach((file) => {
-  if (file === "_metadata.json" || file === "_ipfsMetas.json") return;
+  if (file === "_metadata.json" || file === "_ipfsMetas.json") return
 
-  const jsonFile = fs.readFileSync(`${readDir}/${file}`);
+  const jsonFile = fs.readFileSync(`${readDir}/${file}`)
 
-  let url = "https://api.nftport.xyz/v0/metadata";
+  let url = "https://api.nftport.xyz/v0/metadata"
   let options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: AUTH,
+      Authorization: AUTH
     },
-    body: jsonFile,
-  };
+    body: jsonFile
+  }
 
   fetch(url, options)
     .then((res) => res.json())
     .then((json) => {
-      writter.write(JSON.stringify(json, null, 2));
-      fileCount--;
+      writter.write(JSON.stringify(json, null, 2))
+      fileCount--
 
       if (fileCount === 0) {
-        writter.write("]");
-        writter.end();
+        writter.write("]")
+        writter.end()
       } else {
-        writter.write(",\n");
+        writter.write(",\n")
       }
 
-      console.log(`${json.name} metadata uploaded & added to _ipfsMetas.json`);
+      console.log(`${json.name} metadata uploaded & added to _ipfsMetas.json`)
     })
-    .catch((err) => console.error("error:" + err));
-});
+    .catch((err) => console.error("error:" + err))
+})

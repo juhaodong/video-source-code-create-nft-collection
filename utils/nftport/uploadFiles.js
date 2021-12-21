@@ -6,7 +6,7 @@ const isLocal = typeof process.pkg === "undefined";
 const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
 const fs = require("fs");
 
-const AUTH = 'YOUR API KEY HERE';
+const AUTH = 'a73f9bfb-4e00-4f62-a67c-ffae85315326';
 
 fs.readdirSync(`${basePath}/build/images`).forEach((file) => {
   const formData = new FormData();

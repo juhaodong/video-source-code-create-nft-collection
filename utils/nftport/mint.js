@@ -4,9 +4,9 @@ const isLocal = typeof process.pkg === "undefined";
 const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
 const fs = require("fs");
 
-const AUTH = 'YOUR API KEY HERE';
-const CONTRACT_ADDRESS = 'YOUR CONTRACT ADDRESS HERE';
-const MINT_TO_ADDRESS = 'YOUR WALLET ADDRESS HERE';
+const AUTH = 'a73f9bfb-4e00-4f62-a67c-ffae85315326';
+const CONTRACT_ADDRESS = '0xea6c8aec75724f219eb0559089ca35467330d300';
+const MINT_TO_ADDRESS = '0xAe136FBc808A9Ead9a7D13Dc9953A2F58bcaf735';
 const CHAIN = 'rinkeby';
 
 const ipfsMetas = JSON.parse(
@@ -28,7 +28,7 @@ ipfsMetas.forEach((meta) => {
     contract_address: CONTRACT_ADDRESS,
     metadata_uri: meta.metadata_uri,
     mint_to_address: MINT_TO_ADDRESS,
-    token_id: meta.custom_fields.edition,
+    token_id: 1,
   };
 
   let options = {

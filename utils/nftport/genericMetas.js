@@ -16,10 +16,9 @@ fs.readdirSync(`${buildDir}/json`).forEach((file) => {
   jsonFile.name = "Unknown";
   jsonFile.description = "Unknown";
   jsonFile.file_url =
-    "https://ipfs.io/ipfs/QmUf9tDbkqnfHkQaMdFWSGAeXwVXWA61pFED7ypx4hcsfh";
-    // This is an example url, replace with yours.
+    "https://ipfs.io/ipfs/QmP2k2yQrmVz9N8bn7Co8D7kMxHPyUUhv93vg3CozbwEBL?filename=gb.jpg";
   delete jsonFile.attributes;
-  delete jsonFile.custom_fields.dna;
+  delete jsonFile.dna;
 
   fs.writeFileSync(
     `${buildDir}/genericJson/${file}`,
